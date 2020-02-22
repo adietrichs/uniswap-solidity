@@ -32,7 +32,7 @@ contract UniswapFactory {
     require(token != address(0));
     require(exchangeTemplate != address(0));
     require(token_to_exchange[token] == address(0));
-    UniswapExchange exchange = new UniswapExchange();
+    UniswapExchange exchange = new UniswapExchange{salt: bytes32(uint256(token))}();
     exchange.setup(token);
     token_to_exchange[token] = address(exchange);
     exchange_to_token[address(exchange)] = token;
